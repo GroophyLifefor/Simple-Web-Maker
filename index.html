@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Web Maker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Simple Web Maker</h1>
+      <p>Drag elements to build your webpage</p>
+    </header>
+    
+    <div class="workspace">
+      <!-- Input Panel -->
+      <div class="panel input-panel">
+        <h3>Elements</h3>
+        <div class="element-buttons">
+          <button class="element-btn" draggable="true" data-type="h1">
+            <span>H1</span>
+            <small>Heading 1</small>
+          </button>
+          <button class="element-btn" draggable="true" data-type="h2">
+            <span>H2</span>
+            <small>Heading 2</small>
+          </button>
+          <button class="element-btn" draggable="true" data-type="p">
+            <span>P</span>
+            <small>Paragraph</small>
+          </button>
+          <button class="element-btn" draggable="true" data-type="ul">
+            <span>UL</span>
+            <small>Unordered List</small>
+          </button>
+          <button class="element-btn" draggable="true" data-type="ol">
+            <span>OL</span>
+            <small>Ordered List</small>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Preview Panel -->
+      <div class="panel preview-panel">
+        <h3>Preview</h3>
+        <div class="preview-area" id="preview-area">
+          <p class="drop-hint">Drag elements here to build your page</p>
+        </div>
+      </div>
+      
+      <!-- Output Panel -->
+      <div class="panel output-panel">
+        <h3>HTML Output</h3>
+        <textarea id="html-output" readonly></textarea>
+        <button id="copy-html">Copy HTML</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Edit Element</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-form">
+          <!-- Single text input for headings and paragraphs -->
+          <div id="text-input-container" class="input-container">
+            <label for="text-input">Content:</label>
+            <input type="text" id="text-input" placeholder="Enter content...">
+          </div>
+          
+          <!-- List items container for lists -->
+          <div id="list-input-container" class="input-container">
+            <label for="list-items">List Items:</label>
+            <div id="list-items-wrapper">
+              <div class="list-item-group">
+                <input type="text" class="list-item-input" placeholder="List item 1">
+                <button type="button" class="remove-item-btn">&times;</button>
+              </div>
+            </div>
+            <button type="button" id="add-list-item">+ Add Item</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modal-cancel" class="btn-secondary">Cancel</button>
+        <button type="button" id="modal-save" class="btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
