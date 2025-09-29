@@ -233,18 +233,74 @@ header p {
 }
 
 /* Output Panel */
-#html-output {
-  width: 100%;
-  height: 200px;
-  font-family: 'Courier New', monospace;
-  font-size: 12px;
-  padding: 15px;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
-  background: #f7fafc;
-  color: #2d3748;
-  resize: vertical;
-  margin-bottom: 10px;
+.code-container {
+  background: #2d3748;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 1px solid #4a5568;
+}
+
+.code-container pre {
+  margin: 0;
+  max-height: 600px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.code-container code {
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+  padding: 20px;
+  display: block;
+  color: #e2e8f0;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Override Prism theme colors for better visibility */
+.code-container .token.tag {
+  color: #f56565;
+}
+
+.code-container .token.attr-name {
+  color: #63b3ed;
+}
+
+.code-container .token.attr-value {
+  color: #68d391;
+}
+
+.code-container .token.punctuation {
+  color: #a0aec0;
+}
+
+.code-container .token.doctype {
+  color: #9f7aea;
+}
+
+.code-container .token.comment {
+  color: #718096;
+  font-style: italic;
+}
+
+/* Scrollbar styling for code container */
+.code-container pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-container pre::-webkit-scrollbar-track {
+  background: #1a202c;
+}
+
+.code-container pre::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+.code-container pre::-webkit-scrollbar-thumb:hover {
+  background: #718096;
 }
 
 #copy-html {

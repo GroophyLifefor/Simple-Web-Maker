@@ -189,7 +189,7 @@ class WebMaker {
       if (this.previewArea.children.length === 0) {
         const dropHint = document.createElement('p');
         dropHint.className = 'drop-hint';
-        dropHint.textContent = 'Drag elements here to build your page';
+        dropHint.textContent = 'Sayfayı yapmaya başlamak için elementleri buraya sürükle';
         this.previewArea.appendChild(dropHint);
       }
     });
@@ -474,15 +474,32 @@ class WebMaker {
   
   updateHtmlOutput() {
     const elements = this.previewArea.querySelectorAll('.preview-element');
-    let html = '';
+    let bodyContent = '';
     
     elements.forEach(element => {
       // Get content without the delete button
       const content = element.innerHTML.replace(/<button class="delete-btn"[^>]*>.*?<\/button>/g, '');
-      html += this.formatHtml(content) + '\n';
+      bodyContent += '  ' + this.formatHtml(content) + '\n';
     });
     
-    this.htmlOutput.value = html.trim();
+    const completeHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generated Page</title>
+</head>
+<body>
+${bodyContent.trim() ? bodyContent : '  <!-- Yaptıkların buraya gelecek -->\n'}
+</body>
+</html>`;
+    
+    this.htmlOutput.textContent = completeHtml;
+    
+    // Apply syntax highlighting
+    if (window.Prism) {
+      Prism.highlightElement(this.htmlOutput);
+    }
   }
   
   formatHtml(htmlString) {
@@ -501,10 +518,10 @@ class WebMaker {
       let formattedList = `<${tagName}>\n`;
       
       listItems.forEach(li => {
-        formattedList += `  <li>${li.textContent}</li>\n`;
+        formattedList += `    <li>${li.textContent}</li>\n`;
       });
       
-      formattedList += `</${tagName}>`;
+      formattedList += `  </${tagName}>`;
       return formattedList;
     } else {
       // Format single-line elements
@@ -514,8 +531,8 @@ class WebMaker {
   
   setupCopyButton() {
     this.copyButton.addEventListener('click', () => {
-      this.htmlOutput.select();
-      navigator.clipboard.writeText(this.htmlOutput.value).then(() => {
+      const htmlContent = this.htmlOutput.textContent;
+      navigator.clipboard.writeText(htmlContent).then(() => {
         // Visual feedback
         this.copyButton.textContent = 'Copied!';
         this.copyButton.classList.add('success-flash');
@@ -526,7 +543,13 @@ class WebMaker {
         }, 2000);
       }).catch(() => {
         // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = htmlContent;
+        document.body.appendChild(textArea);
+        textArea.select();
         document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
         this.copyButton.textContent = 'Copied!';
         setTimeout(() => {
           this.copyButton.textContent = 'Copy HTML';

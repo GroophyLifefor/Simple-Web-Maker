@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simple Web Maker</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -20,23 +23,23 @@
         <div class="element-buttons">
           <button class="element-btn" draggable="true" data-type="h1">
             <span>H1</span>
-            <small>Heading 1</small>
+            <small>Heading 1 (başlık)</small>
           </button>
           <button class="element-btn" draggable="true" data-type="h2">
             <span>H2</span>
-            <small>Heading 2</small>
+            <small>Heading 2 (alt başlık)</small>
           </button>
           <button class="element-btn" draggable="true" data-type="p">
             <span>P</span>
-            <small>Paragraph</small>
+            <small>Paragraph (paragraf)</small>
           </button>
           <button class="element-btn" draggable="true" data-type="ul">
             <span>UL</span>
-            <small>Unordered List</small>
+            <small>Unordered List (sırasız liste)</small>
           </button>
           <button class="element-btn" draggable="true" data-type="ol">
             <span>OL</span>
-            <small>Ordered List</small>
+            <small>Ordered List (sıralı liste)</small>
           </button>
         </div>
       </div>
@@ -45,14 +48,16 @@
       <div class="panel preview-panel">
         <h3>Preview</h3>
         <div class="preview-area" id="preview-area">
-          <p class="drop-hint">Drag elements here to build your page</p>
+          <p class="drop-hint">Sayfayı yapmaya başlamak için elementleri buraya sürükle</p>
         </div>
       </div>
       
       <!-- Output Panel -->
       <div class="panel output-panel">
         <h3>HTML Output</h3>
-        <textarea id="html-output" readonly></textarea>
+        <div class="code-container">
+          <pre><code id="html-output" class="language-html"></code></pre>
+        </div>
         <button id="copy-html">Copy HTML</button>
       </div>
     </div>
@@ -62,33 +67,33 @@
   <div id="edit-modal" class="modal-overlay">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="modal-title">Edit Element</h3>
+        <h3 id="modal-title">Element Düzenleme</h3>
         <button class="modal-close" id="modal-close">&times;</button>
       </div>
       <div class="modal-body">
         <form id="edit-form">
           <!-- Single text input for headings and paragraphs -->
           <div id="text-input-container" class="input-container">
-            <label for="text-input">Content:</label>
-            <input type="text" id="text-input" placeholder="Enter content...">
+            <label for="text-input">Yazı:</label>
+            <input type="text" id="text-input" placeholder="Yazı yaz...">
           </div>
           
           <!-- List items container for lists -->
           <div id="list-input-container" class="input-container">
-            <label for="list-items">List Items:</label>
+            <label for="list-items">Liste itemleri:</label>
             <div id="list-items-wrapper">
               <div class="list-item-group">
-                <input type="text" class="list-item-input" placeholder="List item 1">
+                <input type="text" class="list-item-input" placeholder="Liste itemi 1">
                 <button type="button" class="remove-item-btn">&times;</button>
               </div>
             </div>
-            <button type="button" id="add-list-item">+ Add Item</button>
+            <button type="button" id="add-list-item">+ Yeni item ekle</button>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="modal-cancel" class="btn-secondary">Cancel</button>
-        <button type="button" id="modal-save" class="btn-primary">Save</button>
+        <button type="button" id="modal-cancel" class="btn-secondary">Vazgeç</button>
+        <button type="button" id="modal-save" class="btn-primary">Kaydet</button>
       </div>
     </div>
   </div>
